@@ -1,0 +1,26 @@
+{
+  "name": "ifc",
+  "version": "1.0.0",
+  "description": "A Javascript client for Infinite Flight simulator API",
+  "main": "ifc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicolasbd/ifc.git"
+  },
+  "keywords": [
+    "api",
+    "infinite flight",
+    "flight",
+    "simulator",
+    "client"
+  ],
+  "author": "Nicolas BARTHE-DEJEAN",
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/nicolasbd/ifc/issues"
+  },
+  "homepage": "https://github.com/nicolasbd/ifc"
+}
