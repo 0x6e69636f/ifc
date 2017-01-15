@@ -53,10 +53,19 @@ var IFC = {
   onDataReceived: function(data) {},
   onHostSearchFailed: function() {},
 
-  // FORE FLIGHT //
-  onForeFlightDataReceived: function(data) {
-    IFC.log(data);
+  // SHORTCUTS FUNCTIONS //
+  init: function(successCallback, errorCallback) {
+    if (successCallback) IFC.onSocketConnected = successCallback;
+    if (errorCallback) IFC.onSocketConnectionError = errorCallback;
+    IFC.searchHost(successCallback, errorCallback);
   },
+
+  initForeFlight: function(onForeFlightDataReceived) {
+    IFC.initForeFlightReceiver(onForeFlightDataReceived);
+  },
+
+  // FORE FLIGHT //
+  onForeFlightDataReceived: function(data) { IFC.log(data); },
 
   initForeFlightReceiver: function(onForeFlightDataReceived) {
 
@@ -136,14 +145,6 @@ var IFC = {
     });
 
     IFC.infiniteFlight.discoverSocket.bind(IFC.infiniteFlight.broadcastPort);
-    // setTimeout(function(){
-    //   if (IFC.infiniteFlight.discoverSocket) {
-    //     IFC.infiniteFlight.discoverSocket.close(function() {
-    //       if (!IFC.discoverSocketId) IFC.onHostSearchFailed();
-    //       IFC.discoverSocketId = false;
-    //     });
-    //   }
-    // }, 30000);
 
   },
 
@@ -174,6 +175,18 @@ var IFC = {
     	IFC.infiniteFlight.clientSocket = false;
     });
 
+  },
+
+  cmd: function(cmd) {
+    IFC.sendCommand({
+      "Command": "Commands." + cmd,
+      "Parameters": []
+    })
+  },
+
+  getAirplaneState: function(onDataReceived) {
+    if (onDataReceived) IFC.onDataReceived = onDataReceived;
+    IFC.sendCommand({ "Command": "Airplane.GetState", "Parameters": []});
   },
 
   sendCommand: function(cmd) {

@@ -1,6 +1,6 @@
 {
   "name": "ifc",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Javascript client for Infinite Flight simulator API",
   "main": "ifc.js",
   "scripts": {
@@ -9,6 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/nicolasbd/ifc.git"
+  },
+  "scripts": {
+    "test": "node tests/connection.js"
   },
   "keywords": [
     "api",
