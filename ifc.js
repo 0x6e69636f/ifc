@@ -10,6 +10,28 @@ var IFC = {
   name: "IF Connect",
   isConnected: false,
 
+  foreFlight: {
+    socket: false,
+    broadcastPort: 49002,
+    dataModels: {
+      // GPS
+      "XGPSInfinite Flight": {
+        "name": "GPS",
+        "fields": ["lat", "lng", "alt", "hdg", "gs"]
+      },
+      // Attitude
+      "XATTInfinite Flight": {
+        "name": "attitude",
+        "fields": ["hdg", "pitch", "roll"]
+      },
+      // Traffic
+      "XTRAFFICInfinite Flight": {
+        "name": "traffic",
+        "fields": ["icao", "lat", "lng", "alt", "vs", "gnd", "hdg", "spd", "callsign"]
+      }
+    }
+  },
+  
   infiniteFlight: {
     broadcastPort: 15000,
     serverPort: 0,
