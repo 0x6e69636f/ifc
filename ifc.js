@@ -10,28 +10,6 @@ var IFC = {
   name: "IF Connect",
   isConnected: false,
 
-  foreFlight: {
-    socket: false,
-    broadcastPort: 49002,
-    dataModels: {
-      // GPS
-      "XGPSInfinite Flight": {
-        "name": "GPS",
-        "fields": ["lat", "lng", "alt", "hdg", "gs"]
-      },
-      // Attitude
-      "XATTInfinite Flight": {
-        "name": "attitude",
-        "fields": ["hdg", "pitch", "roll"]
-      },
-      // Traffic
-      "XTRAFFICInfinite Flight": {
-        "name": "traffic",
-        "fields": ["icao", "lat", "lng", "alt", "vs", "gnd", "hdg", "spd", "callsign"]
-      }
-    }
-  },
-
   infiniteFlight: {
     broadcastPort: 15000,
     serverPort: 0,
@@ -123,13 +101,13 @@ var IFC = {
         IFC.log("Discover socket : parsing error");
       }
 
-      if (data.Address && data.Port) {
+      if (data.Addresses && data.Port) {
         IFC.log("Host Discovered");
         IFC.isConnected = true;
-        IFC.infiniteFlight.serverAddress = data.Address;
+        IFC.infiniteFlight.serverAddress = data.Addresses[0];
         IFC.infiniteFlight.serverPort = data.Port;
 
-        IFC.initIFClient(data.Address, data.Port);
+        IFC.initIFClient(data.Addresses[0], data.Port);
 
         IFC.infiniteFlight.discoverSocket.close(function() {
           IFC.infiniteFlight.discoverSocket = false;
@@ -200,7 +178,7 @@ var IFC = {
         data[i+4] = jsonStr.charCodeAt(i);
       }
 
-      var buffer = new Buffer(data);
+      var buffer = Buffer.from(data);
       IFC.infiniteFlight.clientSocket.write(buffer);
 
     } catch(e) {
